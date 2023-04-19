@@ -4,6 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Deployed Link
 https://merlin-task.netlify.app/
 
+
+## Preview 
+![ss merlin](https://user-images.githubusercontent.com/95679078/233024653-d58ac847-4ca8-4f9c-b96e-c5dfb1505009.png)
+
 ## Available Scripts
 
 In the project directory, you can run:
