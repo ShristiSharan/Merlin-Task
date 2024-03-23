@@ -8,9 +8,6 @@ import { UIProvider } from './context/UiContext';
 
 function App() {
  
-
-  
- 
   return (
     <UIProvider>
     <div >
