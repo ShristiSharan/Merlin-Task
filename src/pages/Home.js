@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import InputBox from "../components/InputBox";
 import { FrequentlyCommands } from "../components/FrequentlyCommands";
 import ResultBox from "../components/ResultBox";
-import { handleSubmit } from "../utils/handleSubmit";
+import { handleSubmit } from "../utlis/handleSubmit";
 import { AddExtension } from "../components/AddExtension";
 
 const Home = () => {

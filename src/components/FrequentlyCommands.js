@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { CapsuleButton } from "./CapsuleButton";
-import { GrammarIcon } from "../assets/icons/GrammarIcon";
-import { SummariseIcon } from "../assets/icons/SummariseIcon";
-import { ExpandIcon } from "../assets/icons/ExpandIcon";
-import { ImproveIcon } from "../assets/icons/ImproveIcon";
-import { ParaphraseIcon } from "../assets/icons/ParaphraseIcon";
-import { SimplifyIcon } from "../assets/icons/SimplifyIcon";
-import { ExplainIcon } from "../assets/icons/ExplainIcon";
-import { TranslateIcon } from "../assets/icons/TranslateIcon";
+import { GrammarIcon } from "../assests/icons/GrammarIcon";
+import { SummariseIcon } from "../assests/icons/SummariseIcon";
+import { ExpandIcon } from "../assests/icons/ExpandIcon";
+import { ImproveIcon } from "../assests/icons/ImproveIcon";
+import { ParaphraseIcon } from "../assests/icons/ParaphraseIcon";
+import { SimplifyIcon } from "../assests/icons/SimplifyIcon";
+import { ExplainIcon } from "../assests/icons/ExplainIcon";
+import { translateIcon} from "../assests/icons/translatelcon";
 import axios from 'axios';
 import InputBox from "./InputBox";
 import ResultBox from "./ResultBox";
@@ -17,7 +17,6 @@ const FrequentlyCommands = () => {
   const [result, setResult] = useState('');
 
   const handleButtonClick = async (selectedTask) => {
-    try {
       let prompt;
       switch (selectedTask) {
         case 'Grammarly':
@@ -47,7 +46,12 @@ const FrequentlyCommands = () => {
         default:
           prompt = `Provide input text for the task: ${selectedTask}`;
       }
-  
+
+  setInput(prompt);
+  handleSubmit();
+    };
+  const handleSubmit = async () => {
+        try {
       const response = await axios.post('https://api.openai.com/v1/completions', {
         model: 'text-davinci-003',
         prompt: prompt,
@@ -80,9 +84,9 @@ const FrequentlyCommands = () => {
         <CapsuleButton title="Paraphrase" children={<ParaphraseIcon />} onClick={() => handleButtonClick('Paraphrase')} />
         <CapsuleButton title="Simplify" children={<SimplifyIcon />} onClick={() => handleButtonClick('Simplify')} />
         <CapsuleButton title="Explain" children={<ExplainIcon />} onClick={() => handleButtonClick('Explain')} />
-        <CapsuleButton title="Translate" children={<TranslateIcon />} onClick={() => handleButtonClick('Translate')} />
+        <CapsuleButton title="Translate" children={<translateIcon />} onClick={() => handleButtonClick('Translate')} />
       </div>
-      <InputBox input={input} setInput={setInput} />
+      <InputBox input={input} setInput={setInput} handleSubmit={handleSubmit} />
       <ResultBox result={result} />
     </div>
   );

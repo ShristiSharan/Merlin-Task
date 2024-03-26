@@ -1,6 +1,6 @@
 import React from "react";
-import { CopyIcon } from "../assets/icons/CopyIcon";
-import { RefreshIcon } from "../assets/icons/RefreshIcon";
+import { CopyIcon } from "../assests/icons/CopyIcon";
+import { RefreshIcon } from "../assests/icons/RefreshIcon";
 
 const ResultBox = ({ result, handleRefresh }) => {
   const copyToClipboard = (text) => {

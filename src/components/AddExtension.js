@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChromeIcon } from "../assets/icons/ChromeIcon";
+import { ChromeIcon } from "../assests/icons/ChromeIcon";
 import { FirefoxIcon } from "../assests/icons/FirefoxIcon";
 
 export const AddExtension = () => {

@@ -9,14 +9,14 @@ const Header = () => {
           <div className="flex flex-row">
             <div className="flex flex-col items-center justify-center mx-2">
               <img
-                src={require("../assets/Group.png")}
+                src={require("../assests/Group.png")}
                 alt="Logo"
                 className="w-[50px] h-[50px] self-center my-aut"
               />
             </div>
             <div className="flex flex-col items-center justify-center mx-2">
               <img
-                src={require("../assets/Vector.png")}
+                src={require("../assests/Vector.png")}
                 alt="Logo"
                 className="w-[180px] h-[50px] self-center my-aut"
               />
