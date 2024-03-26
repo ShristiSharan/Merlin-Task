@@ -3,45 +3,29 @@ import InputBox from "../components/InputBox";
 import { FrequentlyCommands } from "../components/FrequentlyCommands";
 import ResultBox from "../components/ResultBox";
 import { handleSubmit } from "../utils/handleSubmit";
-import { useUIContext } from "../context/UiContext";
 import { AddExtension } from "../components/AddExtension";
 
 const Home = () => {
-  const { allResults, setAllResults, disableRefresh, setDisableRefresh } =
-    useUIContext();
-
   const [input, setInput] = useState("");
-  const [result, setResult] = useState();
+  const [result, setResult] = useState("");
   const [resultArray, setResultArray] = useState([]);
 
   const handleChange = (val) => {
     setResultArray((prev) => [...prev, val]);
   };
-  const setDisable = (val) => {
-    setDisableRefresh(val);
-  };
- 
-  const submitHandler = (e) => {
-    setAllResults([]);
+
+  const submitHandler = () => {
     setResultArray([]);
-    setResult("");
-    handleSubmit(input, handleChange, setDisable);
+    handleSubmit(input, handleChange);
   };
-  const setResultHandler = (val) => {
-    setResult(allResults[val]);
-  };
-  
+
   const handleRefresh = () => {
-    if (disableRefresh) return;
     setResultArray([]);
-    setResult("");
-    setAllResults(prev=>[...prev,""])
-    handleSubmit(input, handleChange, setDisable);
+    handleSubmit(input, handleChange);
   };
+
   useEffect(() => {
     setResult(resultArray.join(""));
-    // update the last element of the all Results array
-    setAllResults((prev) => [...prev.slice(0, -1), result]);
   }, [resultArray]);
 
   return (
@@ -54,7 +38,7 @@ const Home = () => {
       <FrequentlyCommands />
       <ResultBox
         result={result}
-        setResult={setResultHandler}
+        setResult={setResult}
         handleRefresh={handleRefresh}
       />
       <AddExtension />

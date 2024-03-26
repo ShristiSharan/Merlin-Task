@@ -4,12 +4,10 @@ import './App.css';
 import Home from './pages/Home';
 import Header from './components/Header';
 
-import { UIProvider } from './context/UiContext';
 
 function App() {
  
   return (
-    <UIProvider>
     <div >
       {/* <Home /> */}
       {/* Hi */}
@@ -19,7 +17,6 @@ function App() {
       
     
       </div>
-    </UIProvider>
   );
 }
 
