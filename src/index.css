@@ -57,7 +57,7 @@ code {
     monospace;
 }
 .header {
-  background-image: url("./assets/3DBg.png");
+  background-image: url("./assests/3DBg.png");
   /* background-color: #13e8e9; */
   background-repeat: no-repeat;
   background-size: cover;

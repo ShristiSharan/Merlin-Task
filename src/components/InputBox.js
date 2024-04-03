@@ -1,6 +1,6 @@
 import React , {useState}from "react";
 // import { useEffect } from "react";
-import { SubmitArrowIcon } from "../assests/icons/SubmitArrowIcon";
+import { FaArrowAltCircleRight         } from 'react-icons/fa'; // Importing Firefox icon from React Icons
 
 
 // const InputBox = ({ input, setInput, submitHandler }) => {
@@ -12,6 +12,7 @@ import { SubmitArrowIcon } from "../assests/icons/SubmitArrowIcon";
 //     if (e.key === "Enter") {
 //       submitHandler();
 //     }
+
 //   };
 
 const InputBox = ({ handleSubmit }) => {
@@ -36,7 +37,7 @@ const InputBox = ({ handleSubmit }) => {
       className="w-full md:w-1/2 lg:w-2/3 px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:border-blue-500"
     />
     <button type="submit">
-      <SubmitArrowIcon />
+      <FaArrowAltCircleRight />
     </button>
   </form>
     // <div className="flex flex-row w-[250px] md:w-[840px] items-center self-center mx-auto justify-center my-2 font-medium rounded-lg bg-gradient-to-r from-[#921dfb80] via-[#F334F2] to-[#ff008280] p-[2px]">
