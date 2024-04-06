@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import InputBox from "../components/InputBox";
 import  FrequentlyCommands  from "../components/FrequentlyCommands";
 import ResultBox from "../components/ResultBox";
-// import { handleSubmit } from "../utlis/handleSubmit";
 import { AddExtension } from "../components/AddExtension";
 import axios from 'axios';
-
 
 
 const Home = () => {
@@ -19,11 +17,11 @@ const Home = () => {
     setSelectedOption(option);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (inputText) => {
     if (!input) return; // Prevent submitting empty input
 
     // Clear previous result
-    setResult("");
+    setInput("");
 
     // If no option is selected, return
     if (!selectedOption) {
@@ -69,7 +67,7 @@ const Home = () => {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer YOUR_OpenAPIKEY', // Replace with your actual OpenAI API key
+          'Authorization': 'Bearer Your_OpenAPI_Key', // Replace with your actual OpenAI API key
         },
       });
 
@@ -80,37 +78,12 @@ const Home = () => {
     }
   };
 
-  // const handleChange = (val) => {
-  //   setResultArray((prev) => [...prev, val]);
-  // };
-
-  // const submitHandler = () => {
-  //   setResultArray([]);
-  //   handleSubmit(input, handleChange);
-  // };
-
-  // const handleRefresh = () => {
-  //   setResultArray([]);
-  //   handleSubmit(input, handleChange);
-  // };
-
-  // useEffect(() => {
-  //   setResult(resultArray.join(""));
-  // }, [resultArray]);
-
   return (
     <div>
-      <InputBox
-        input={input}
-        setInput={setInput}
-        handleSubmit={handleSubmit}
-      />
+      <InputBox handleSubmit={handleSubmit}/>
       <FrequentlyCommands  setSelectedOption={handleSelectedOptionChange}/>
       <ResultBox
-        result={result}
-        setResult={setResult}
-        
-      />
+        result={result}/>
       <AddExtension />
     </div>
   );
