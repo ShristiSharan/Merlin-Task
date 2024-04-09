@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { CapsuleButton } from "./CapsuleButton";
 import { GrammarIcon } from "../assests/icons/GrammarIcon";
 import { SummariseIcon } from "../assests/icons/SummariseIcon";
@@ -10,13 +10,26 @@ import { ExplainIcon } from "../assests/icons/ExplainIcon";
 // import { translateIcon} from "../assests/icons/translatelcon";
 
 
-const FrequentlyCommands = (setSelectedOption) => {
-  const [highlightedButtons, setHighlightedButtons] = useState('');
+const FrequentlyCommands = (setSelectedOption,handleArrowClick) => {
+  const [highlightedButtons, setHighlightedButtons] = useState(false);
+  const [selectedTask, setSelectedTask] = useState('');
+
   
   const handleButtonClick = (selectedTask) => {
     setSelectedOption(selectedTask)
-    setHighlightedButtons(selectedTask);
+    setSelectedTask(selectedTask);
   };
+  const isSelected = (task) => {
+    return selectedTask === task;
+  };
+
+  useEffect(() => {
+    if (handleArrowClick) {
+      // If handleArrowClick is not empty, then trigger highlighting of capsule buttons
+      setHighlightedButtons(true);
+    }
+  }, [handleArrowClick]);
+
 
 
   return (
@@ -27,13 +40,13 @@ const FrequentlyCommands = (setSelectedOption) => {
         </p>
       </div>
       <div className="flex flex-row flex-wrap w-[350px] md:w-[940px] items-center justify-center  font-medium">
-        <CapsuleButton title="Grammarly" children={<GrammarIcon />} onClick={() =>  handleButtonClick('Grammarly')} highlighted={highlightedButtons==='Grammarly'} />
-        <CapsuleButton title="Summarize" children={<SummariseIcon />} onClick={() => handleButtonClick('Summarize')} highlighted={highlightedButtons==='Summarize'} />
-        <CapsuleButton title="Expand" children={<ExpandIcon />} onClick={() => handleButtonClick('Expand')} highlighted={highlightedButtons==='Expand'} />
-        <CapsuleButton title="Improve" children={<ImproveIcon />} onClick={() =>  handleButtonClick('Improve')} highlighted={highlightedButtons==='Improve'} />
-        <CapsuleButton title="Paraphrase" children={<ParaphraseIcon />} onClick={() =>  handleButtonClick('Paraphrase')} highlighted={highlightedButtons==='Paraphrase'} />
-        <CapsuleButton title="Simplify" children={<SimplifyIcon />} onClick={() => handleButtonClick('Simplify')} highlighted={highlightedButtons==='Simplify'} />
-        <CapsuleButton title="Explain" children={<ExplainIcon />} onClick={() => handleButtonClick('Explain')} highlighted={highlightedButtons==='Explain'} />
+        <CapsuleButton title="Grammarly" children={<GrammarIcon />} onClick={() =>  handleButtonClick('Grammarly')} highlighted={isSelected('Grammarly') || highlightedButtons} />
+        <CapsuleButton title="Summarize" children={<SummariseIcon />} onClick={() => handleButtonClick('Summarize')} highlighted={isSelected('Summarize')|| highlightedButtons} />
+        <CapsuleButton title="Expand" children={<ExpandIcon />} onClick={() => handleButtonClick('Expand')} highlighted={isSelected('Expand')|| highlightedButtons} />
+        <CapsuleButton title="Improve" children={<ImproveIcon />} onClick={() =>  handleButtonClick('Improve')} highlighted={isSelected('Improve')|| highlightedButtons} />
+        <CapsuleButton title="Paraphrase" children={<ParaphraseIcon />} onClick={() =>  handleButtonClick('Paraphrase')} highlighted={isSelected('Paraphrase')|| highlightedButtons} />
+        <CapsuleButton title="Simplify" children={<SimplifyIcon />} onClick={() => handleButtonClick('Simplify')} highlighted={isSelected('Simplify')|| highlightedButtons} />
+        <CapsuleButton title="Explain" children={<ExplainIcon />} onClick={() => handleButtonClick('Explain')} highlighted={isSelected('Explain')|| highlightedButtons} />
         {/* <CapsuleButton title="Translate" children={<translateIcon/>} onClick={() => handleButtonClick('Translate')} /> */}
       </div>
       

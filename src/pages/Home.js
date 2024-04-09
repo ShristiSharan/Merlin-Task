@@ -11,6 +11,7 @@ const Home = () => {
   const [result, setResult] = useState("");
   // const [resultArray, setResultArray] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [submitAccess, setSubmitAccess] = useState(false); // State for checkbox
 
 
   const handleSelectedOptionChange = (option) => {
@@ -28,6 +29,10 @@ const Home = () => {
       alert("Please select an option before submitting.");
       return;
     }
+    setSelectedOption(null); // Reset selected option
+    const handleCheckboxChange = (e) => {
+      setSubmitAccess(e.target.checked);
+    };
 
     let prompt;
     switch (selectedOption) {
@@ -56,8 +61,10 @@ const Home = () => {
           prompt = "Translate in hindi:";
           break;
       default:
-        prompt = "";
+        prompt = "hiiii I love you in all languages";
     }
+      // Debug: Output generated prompt to console
+  console.log("Generated Prompt:", inputText + " " + prompt);
 
     try {
       const response = await axios.post('https://api.openai.com/v1/completions', {
@@ -67,7 +74,9 @@ const Home = () => {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer Your_OpenAPI_Key', // Replace with your actual OpenAI API key
+          'Authorization': 'Bearer  _', // Replace with your actual OpenAI API key
+          // 'Authorization': 'Bearer Your_OpenAPI_Key', // Replace with your actual OpenAI API key
+
         },
       });
 
@@ -82,6 +91,7 @@ const Home = () => {
     <div>
       <InputBox handleSubmit={handleSubmit}/>
       <FrequentlyCommands  setSelectedOption={handleSelectedOptionChange}/>
+      {submitAccess && <button onClick={() => handleSubmit(input)}>Submit</button>}
       <ResultBox
         result={result}/>
       <AddExtension />
