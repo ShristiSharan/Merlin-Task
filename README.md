@@ -1,5 +1,7 @@
 # Responsive-Interface-for-OpenAI-s-GPT-Text-Completion-Model- MERLIN
 
+Project under work! soon to be working with the functionalities.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ## Deployed Link
 https://merlin-task.netlify.app/
