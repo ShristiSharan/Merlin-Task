@@ -5,24 +5,28 @@ import ResultBox from "../components/ResultBox";
 import { AddExtension } from "../components/AddExtension";
 import axios from 'axios';
 
+const API_KEY = "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"; // Replace with your actual OpenAI API key
 
 const Home = () => {
   const [input, setInput] = useState("");
   const [result, setResult] = useState("");
-  // const [resultArray, setResultArray] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [submitAccess, setSubmitAccess] = useState(false); // State for checkbox
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [highlightedOption, setHighlightedOption] = useState(null);
 
   const handleSelectedOptionChange = (option) => {
     setSelectedOption(option);
+    setHighlightedOption(option);
   };
 
   const handleSubmit = async (inputText) => {
-    if (!input) return; // Prevent submitting empty input
+    if (!inputText) {
+      alert('Please enter some text');
+    return; // Prevent submitting empty input
+    }
 
-    // Clear previous result
     setInput("");
+
 
     // If no option is selected, return
     if (!selectedOption) {
@@ -30,9 +34,7 @@ const Home = () => {
       return;
     }
     setSelectedOption(null); // Reset selected option
-    const handleCheckboxChange = (e) => {
-      setSubmitAccess(e.target.checked);
-    };
+    setIsLoading(true);
 
     let prompt;
     switch (selectedOption) {
@@ -61,39 +63,46 @@ const Home = () => {
           prompt = "Translate in hindi:";
           break;
       default:
-        prompt = "hiiii I love you in all languages";
+        prompt = "Customer Thankyou! commands";
     }
-      // Debug: Output generated prompt to console
-  console.log("Generated Prompt:", inputText + " " + prompt);
+
+  const customPrompt = input + " " + prompt;
+ 
+  console.log(customPrompt);
 
     try {
-      const response = await axios.post('https://api.openai.com/v1/completions', {
+      const response=await fetchOpenAI(customPrompt);
+      setResult(response.data.choices[0].text);
+    } catch(error){
+      console.error('Error:',error);
+      setResult("An error occurred! Please try again");
+      }finally{
+        setIsLoading(false);
+      }
+    };
+
+    const fetchOpenAI=async(prompt) => {
+      const response = await axios.post('https://api.openai.com/v1/completions', 
+      {
         model: 'text-davinci-003',
-        prompt: input + " " + prompt,
+        prompt: prompt,
         max_tokens: 150,
-      }, {
+      }, 
+      {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer  _', // Replace with your actual OpenAI API key
-          // 'Authorization': 'Bearer Your_OpenAPI_Key', // Replace with your actual OpenAI API key
-
+          'Authorization': 'Bearer' + API_KEY, // Replace with your actual OpenAI API key
         },
       });
-
-      setResult(response.data.choices[0].text);
-    } catch (error) {
-      console.error('Error:', error);
-      setResult("Error fetching result. Please try again.");
-    }
-  };
-
+      return response;
+    };
+      
   return (
     <div>
-      <InputBox handleSubmit={handleSubmit}/>
-      <FrequentlyCommands  setSelectedOption={handleSelectedOptionChange}/>
-      {submitAccess && <button onClick={() => handleSubmit(input)}>Submit</button>}
-      <ResultBox
-        result={result}/>
+      <InputBox handleSubmit={handleSubmit} setInput={setInput}/>
+      <FrequentlyCommands  setSelectedOption={handleSelectedOptionChange}         highlightedOption={highlightedOption}/>
+      <button onClick={handleSubmit}>Submit</button>
+      <ResultBox result={isLoading ?  "Loading..." : result} />
       <AddExtension />
     </div>
   );

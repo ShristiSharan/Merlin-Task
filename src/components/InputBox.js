@@ -3,6 +3,8 @@ import { FaArrowAltCircleRight } from 'react-icons/fa';
 
 const InputBox = ({ handleSubmit }) => {
   const [inputText, setInputText] = useState('');
+  const [selectedOption, setSelectedOption] = useState(null);
+
 
   const handleInputChange = (event) => {
     setInputText(event.target.value);
@@ -18,8 +20,11 @@ const InputBox = ({ handleSubmit }) => {
       alert("Please enter text before submitting.");
       return;
     }
-    handleSubmit(inputText.trim());
+    handleSubmit(inputText, selectedOption);
+    setSelectedOption(null);
   };
+
+  
 
   return (
     <div className="flex justify-center items-center mt-6">
@@ -28,7 +33,7 @@ const InputBox = ({ handleSubmit }) => {
       placeholder="Enter your text here..."
       value={inputText}
       onChange={handleInputChange}
-      className="w-full md:w-1/2 lg:w-2/3 px-4 py-3 rounded-lg bg-white border border-gray-300 focus:outline-none focus:border-blue-500"
+      className="w-full md:w-1/2 lg:w-2/3 px-4 py-3 rounded-lg bg-white border $ border-gray-300 focus:outline-none focus:border-blue-500"
     />
     <button type="button" onClick={handleArrowClick} className="hover:pg-purple-500 hover:text-white focus:outline-none">
       <FaArrowAltCircleRight size='4em' style={{ border: "2px solid purple", borderRadius: "50%" }}/>
