@@ -5,7 +5,7 @@ import ResultBox from "../components/ResultBox";
 import { AddExtension } from "../components/AddExtension";
 import axios from 'axios';
 
-const API_KEY = "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"; // Replace with your actual OpenAI API key
+const API_KEY = ""; // Replace with your actual OpenAI API key
 
 const Home = () => {
   const [input, setInput] = useState("");
