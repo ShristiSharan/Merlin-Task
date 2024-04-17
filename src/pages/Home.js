@@ -12,12 +12,12 @@ const Home = () => {
   const [result, setResult] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [highlightedOption, setHighlightedOption] = useState(null);
+  // const [highlightedOption, setHighlightedOption] = useState(null);
 
-  const handleSelectedOptionChange = (option) => {
-    setSelectedOption(option);
-    setHighlightedOption(option);
-  };
+  // const handleSelectedOptionChange = (option) => {
+  //   setSelectedOption(option);
+  //   setHighlightedOption(option);
+  // };
 
   const handleSubmit = async (inputText) => {
     if (!inputText) {
@@ -25,7 +25,7 @@ const Home = () => {
     return; // Prevent submitting empty input
     }
 
-    setInput("");
+    // setInput("");
 
 
     // If no option is selected, return
@@ -33,7 +33,6 @@ const Home = () => {
       alert("Please select an option before submitting.");
       return;
     }
-    setSelectedOption(null); // Reset selected option
     setIsLoading(true);
 
     let prompt;
@@ -100,7 +99,7 @@ const Home = () => {
   return (
     <div>
       <InputBox handleSubmit={handleSubmit} setInput={setInput}/>
-      <FrequentlyCommands  setSelectedOption={handleSelectedOptionChange}         highlightedOption={highlightedOption}/>
+      <FrequentlyCommands  setSelectedOption={setSelectedOption}/>   
       <button onClick={handleSubmit}>Submit</button>
       <ResultBox result={isLoading ?  "Loading..." : result} />
       <AddExtension />
