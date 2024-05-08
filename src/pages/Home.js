@@ -12,21 +12,12 @@ const Home = () => {
   const [result, setResult] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  // const [highlightedOption, setHighlightedOption] = useState(null);
-
-  // const handleSelectedOptionChange = (option) => {
-  //   setSelectedOption(option);
-  //   setHighlightedOption(option);
-  // };
 
   const handleSubmit = async (inputText) => {
-    if (!inputText) {
+    if (!inputText.trim()) {
       alert('Please enter some text');
-    return; // Prevent submitting empty input
+    return; 
     }
-
-    // setInput("");
-
 
     // If no option is selected, return
     if (!selectedOption) {
@@ -67,8 +58,6 @@ const Home = () => {
 
   const customPrompt = input + " " + prompt;
  
-  console.log(customPrompt);
-
     try {
       const response=await fetchOpenAI(customPrompt);
       setResult(response.data.choices[0].text);
@@ -81,6 +70,7 @@ const Home = () => {
     };
 
     const fetchOpenAI=async(prompt) => {
+      try{
       const response = await axios.post('https://api.openai.com/v1/completions', 
       {
         model: 'text-davinci-003',
@@ -90,17 +80,20 @@ const Home = () => {
       {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer' + API_KEY, // Replace with your actual OpenAI API key
+          'Authorization': 'Bearer ' + API_KEY, // Replace with your actual OpenAI API key
         },
       });
       return response;
+    } catch (error) {
+      console.error('Error:', error);
+      throw error;
+    }
     };
       
   return (
     <div>
-      <InputBox handleSubmit={handleSubmit} setInput={setInput}/>
+      <InputBox handleSubmit={handleSubmit}/>
       <FrequentlyCommands  setSelectedOption={setSelectedOption}/>   
-      <button onClick={handleSubmit}>Submit</button>
       <ResultBox result={isLoading ?  "Loading..." : result} />
       <AddExtension />
     </div>

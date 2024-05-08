@@ -3,25 +3,18 @@ import { FaArrowAltCircleRight } from 'react-icons/fa';
 
 const InputBox = ({ handleSubmit }) => {
   const [inputText, setInputText] = useState('');
-  const [selectedOption, setSelectedOption] = useState(null);
 
 
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
 
-  // const handleFormSubmit = (event) => {
-  //   event.preventDefault();
-  //   handleSubmit(inputText);
-  // };
-
   const handleArrowClick = () => {
     if (!inputText.trim()) {
       alert("Please enter text before submitting.");
       return;
     }
-    handleSubmit(inputText, selectedOption);
-    setSelectedOption(null);
+    handleSubmit(inputText);
   };
 
   
